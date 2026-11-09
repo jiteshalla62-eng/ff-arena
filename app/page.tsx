@@ -34,7 +34,7 @@ export default function Home() {
   <h3>SCAN & PAY</h3>
   <p>Scan this QR code to pay your tournament entry fee.</p>
   <img
-    src="/upi-qr.png"
+    src="/upi-qr.jpeg"
     alt="FF Arena UPI Payment QR Code"
     width="220"
   />

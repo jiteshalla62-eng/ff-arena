@@ -1,14 +1,16 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 type Tournament = {id:string; title:string; mode:string; map_name:string; entry_fee:number; prize_pool:number; starts_at:string; slots_total:number; slots_filled:number; description:string|null};
 type Registration = {id:string; status:string; tournament_id:string; tournaments?:{title:string}|null};
 export default function Home() {
+  const router = useRouter();
  const [user,setUser]=useState<any>(null), [tournaments,setTournaments]=useState<Tournament[]>([]), [mine,setMine]=useState<Registration[]>([]), [email,setEmail]=useState(''), [password,setPassword]=useState(''), [name,setName]=useState(''), [uid,setUid]=useState(''), [selected,setSelected]=useState(''), [team,setTeam]=useState(''), [mode,setMode]=useState('Squad'), [loading,setLoading]=useState(false), [notice,setNotice]=useState('');
  const db=supabase;
  async function refresh(){const s=db(); const {data:{user:u}}=await s.auth.getUser(); setUser(u); const {data}=await s.from('tournaments').select('*').eq('is_published',true).order('starts_at'); setTournaments((data||[]) as Tournament[]); if(u){const {data:r}=await s.from('registrations').select('id,status,tournament_id,tournaments(title)').eq('player_id',u.id).order('created_at',{ascending:false}); setMine((r||[]) as any);}}
  useEffect(()=>{refresh().catch(e=>setNotice(e.message)); const s=db(); const {data:{subscription}}=s.auth.onAuthStateChange(()=>refresh()); return ()=>subscription.unsubscribe();},[]);
- async function auth(kind:'signup'|'signin'){setLoading(true);setNotice(''); try{const s=db(); const res=kind==='signup'?await s.auth.signUp({email,password,options:{data:{display_name:name}}}):await s.auth.signInWithPassword({email,password}); if(res.error)throw res.error; if(kind==='signup'&&!res.data.session)setNotice('Check your email to confirm your account, then log in.'); else setNotice('You are signed in.'); await refresh();}catch(e:any){setNotice(e.message||'Could not authenticate.');}finally{setLoading(false);}}
+ async function auth(kind:'signup'|'signin'){setLoading(true);setNotice(''); try{const s=db(); const res=kind==='signup'?await s.auth.signUp({email,password,options:{data:{display_name:name}}}):await s.auth.signInWithPassword({email,password}); if(res.error)throw res.error; if(kind==='signup'&&!res.data.session)setNotice('Check your email to confirm your account, then log in.'); else setNotice('You are signed in.'); router.push('/payment-info');}catch(e:any){setNotice(e.message||'Could not authenticate.');}finally{setLoading(false);}}
  async function googleSignIn() {
   setLoading(true);
   setNotice('');
@@ -25,7 +27,7 @@ export default function Home() {
     setLoading(false);
   }
 }
- async function register(){if(!user){setNotice('Create an account or log in first.');return;} if(!selected||!name.trim()||!uid.trim()){setNotice('Enter your player name, UID and tournament.');return;} setLoading(true);setNotice('');try{const s=db();const {error}=await s.from('registrations').insert({player_id:user.id,tournament_id:selected,player_name:name.trim(),game_uid:uid.trim(),team_name:team.trim()||null,mode});if(error)throw error;setNotice('Registration submitted. Follow the payment instructions shown by the host; your place is not confirmed until payment is verified.');await refresh();}catch(e:any){
+ async function register(){if(!user){setNotice('Create an account or log in first.');return;} if(!selected||!name.trim()||!uid.trim()){setNotice('Enter your player name, UID and tournament.');return;} setLoading(true);setNotice('');try{const s=db();const {error}=await s.from('registrations').insert({player_id:user.id,tournament_id:selected,player_name:name.trim(),game_uid:uid.trim(),team_name:team.trim()||null,mode});if(error)throw error;setNotice('Registration submitted successfully.');await refresh();}catch(e:any){
   if(e?.code === '23505'){
     setNotice('You have already registered for this tournament.');
   } else {
@@ -42,7 +44,7 @@ export default function Home() {
 </div>
 
   
- <div className="panel account" id="account"><h3>PLAYER ACCOUNT</h3>{user?<><p className="muted">Signed in as</p><b>{user.email}</b><button className="outline full" onClick={async()=>{await db().auth.signOut();await refresh();}}>SIGN OUT</button><h3 className="spaced">MY REGISTRATIONS</h3>{mine.length?mine.map(r=><div className="reg-row" key={r.id}><span>{(r as any).tournaments?.title||'Tournament'}</span><b className={'status '+r.status}>{r.status.replace('_',' ')}</b></div>):<p className="muted">Your registrations will appear here.</p>}</>:<><p className="muted">Create an account or sign in to register and view your room details when approved.</p><label>Display name<input value={name} onChange={e=>setName(e.target.value)} placeholder="Your name"/></label><label>Email<input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com"/></label><label>Password<input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="At least 8 characters"/></label><div className="button-row">
+ <div className="panel account" id="account"><h3>PLAYER ACCOUNT</h3>{user?<><p className="muted">Signed in as</p><b>{user.email}</b><button className="outline full" onClick={async()=>{await db().auth.signOut();router.push('/payment-info');}}>SIGN OUT</button><h3 className="spaced">MY REGISTRATIONS</h3>{mine.length?mine.map(r=><div className="reg-row" key={r.id}><span>{(r as any).tournaments?.title||'Tournament'}</span><b className={'status '+r.status}>{r.status.replace('_',' ')}</b></div>):<p className="muted">Your registrations will appear here.</p>}</>:<><p className="muted">Create an account or sign in to register and view your room details when approved.</p><label>Display name<input value={name} onChange={e=>setName(e.target.value)} placeholder="Your name"/></label><label>Email<input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com"/></label><label>Password<input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="At least 8 characters"/></label><div className="button-row">
   <button className="cta" disabled={loading||!email||password.length<8} onClick={()=>auth('signup')}>CREATE ACCOUNT</button>
   <button className="outline" disabled={loading||!email||password.length<8} onClick={()=>auth('signin')}>LOG IN</button>
 </div>

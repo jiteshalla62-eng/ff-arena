@@ -67,11 +67,11 @@ export default function PaymentInfoPage() {
           </h1>
 
           <div style={{ marginTop: 25 }}>
-            <label>Demo account name</label>
-            <input disabled placeholder="Demo only — no real UPI details" />
+            <label>UPI ID</label>
+            <input placeholder="Enter UPI ID" />
 
-            <label>Demo reference</label>
-            <input disabled placeholder="Demo only — no transaction ID" />
+            <label>UPI ID Name</label>
+            <input placeholder="Enter UPI ID Name" />
           </div>
 
           {confirmed ? (

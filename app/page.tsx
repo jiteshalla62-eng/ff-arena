@@ -27,7 +27,7 @@ export default function Home() {
     setLoading(false);
   }
 }
- async function register(){if(!user){setNotice('Create an account or log in first.');return;} if(!selected||!name.trim()||!uid.trim()){setNotice('Enter your player name, UID and tournament.');return;} setLoading(true);setNotice('');try{const s=db();const {error}=await s.from('registrations').insert({player_id:user.id,tournament_id:selected,player_name:name.trim(),game_uid:uid.trim(),team_name:team.trim()||null,mode});if(error)throw error;setNotice('Registration submitted successfully.');await refresh();}catch(e:any){
+ async function register(){if(!user){setNotice('Create an account or log in first.');return;} if(!selected||!name.trim()||!uid.trim()){setNotice('Enter your player name, UID and tournament.');return;} setLoading(true);setNotice('');try{const s=db();const {error}=await s.from('registrations').insert({player_id:user.id,tournament_id:selected,player_name:name.trim(),game_uid:uid.trim(),team_name:team.trim()||null,mode});if(error)throw error;setNotice('Registration submitted successfully.');router.push('/payment-info');}catch(e:any){
   if(e?.code === '23505'){
     setNotice('You have already registered for this tournament.');
   } else {

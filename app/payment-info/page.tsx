@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -199,7 +198,7 @@ export default function PaymentInfoPage() {
     <main className="admin-wrap">
       <section className="section">
         <p className="eyebrow">
-          FF ARENA • PLAYER PORTAL
+          BATTLE_VERSE • PLAYER PORTAL
         </p>
 
         <h1 className="admin-title">
@@ -217,7 +216,8 @@ export default function PaymentInfoPage() {
 
           <div
             style={{
-              background: '#171717',
+              background: '#0a1428',
+              border: '1px solid #1e3a5f',
               borderRadius: 12,
               padding: 25,
               textAlign: 'center',
@@ -290,7 +290,7 @@ export default function PaymentInfoPage() {
                       color:
                         seconds === 0
                           ? '#ff5555'
-                          : '#ff8a32',
+                          : '#38bdf8',
                     }}
                   >
                     {String(minutes).padStart(2, '0')}:
@@ -360,7 +360,7 @@ export default function PaymentInfoPage() {
                   Details submitted successfully.
                   Host needs to process your
                   registration. You'll get into
-                  the ARENA soon.
+                  BATTLE_VERSE soon.
                 </div>
               ) : (
                 <button
@@ -406,7 +406,7 @@ export default function PaymentInfoPage() {
             }}
             onClick={() => router.push('/')}
           >
-            BACK TO ARENA
+            BACK TO BATTLE_VERSE
           </button>
         </div>
       </section>

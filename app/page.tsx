@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -217,7 +216,10 @@ export default function Home() {
     <main>
       <nav className="nav">
         <a className="brand" href="#top">
-          <span className="flame">◆</span> FF <b>ARENA</b>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}>
+            <img src="/battleverse-icon.svg" alt="" width={32} height={32} />
+            <span>BATTLE_<b>VERSE</b></span>
+          </span>
         </a>
 
         <div className="navlinks">
@@ -236,15 +238,14 @@ export default function Home() {
           </p>
 
           <h1>
-            DROP IN.
+            ENTER THE BATTLE.
             <br />
-            <em>FIGHT HARD.</em>
-            <br />
-            CLAIM GLORY.
+            <em>RULE THE VERSE.</em>
+
           </h1>
 
           <p className="sub">
-            Find your squad. Enter the arena.
+            Find your squad. Dominate the battleground.
             Make every match count.
           </p>
 
@@ -270,19 +271,19 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-art">
-          <div className="ring r1" />
-          <div className="ring r2" />
-
-          <div className="art-label">
-            THE BATTLE
-            <br />
-            <strong>STARTS HERE</strong>
-          </div>
-
-          <div className="art-bottom">
-            FF ARENA <span>/// 01</span>
-          </div>
+        <div className="hero-art" style={{ minWidth: 0 }}>
+          <img
+            src="/battleverse-logo.png"
+            alt="BATTLE_VERSE Free Fire Tournaments gaming artwork"
+            style={{
+              display: 'block',
+              width: '100%',
+              height: 'auto',
+              borderRadius: 16,
+              border: '1px solid #38bdf855',
+              boxShadow: '0 0 40px #2563eb55',
+            }}
+          />
         </div>
       </section>
 
@@ -641,7 +642,7 @@ export default function Home() {
 
       <footer>
         <a className="brand" href="#top">
-          ◆ FF <b>ARENA</b>
+          ◆ BATTLE_<b>VERSE</b>
         </a>
 
         <span>

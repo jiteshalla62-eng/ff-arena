@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -257,7 +256,7 @@ export default function Admin() {
     return (
       <main className="admin-wrap">
         <a className="brand" href="/">
-          ◆ FF <b>ARENA</b>
+          ◆ BATTLE_<b>VERSE</b>
         </a>
 
         <h1>ADMIN ACCESS REQUIRED</h1>
@@ -279,7 +278,7 @@ export default function Admin() {
     <main className="admin-wrap">
       <nav className="nav">
         <a className="brand" href="/">
-          ◆ FF <b>ARENA</b>
+          ◆ BATTLE_<b>VERSE</b>
         </a>
 
         <span className="live">
@@ -295,7 +294,7 @@ export default function Admin() {
         </p>
 
         <h1 className="admin-title">
-          ADMIN <em>DASHBOARD</em>
+          BATTLE_VERSE <em>ADMIN</em>
         </h1>
 
         <div className="panel admin-form">
@@ -466,11 +465,11 @@ export default function Admin() {
 
                 <div
                   style={{
-                    background: '#171717',
+                    background: '#081225',
                     padding: 18,
                     borderRadius: 10,
                     marginTop: 15,
-                    border: '1px solid #333',
+                    border: '1px solid #1e3a5f',
                   }}
                 >
                   <p
@@ -486,8 +485,8 @@ export default function Admin() {
                     <span
                       style={{
                         color: r.upi_id
-                          ? '#ff8a32'
-                          : '#888',
+                          ? '#38bdf8'
+                          : '#94a9c5',
                         overflowWrap: 'anywhere',
                       }}
                     >
@@ -501,8 +500,8 @@ export default function Admin() {
                     <span
                       style={{
                         color: r.upi_name
-                          ? '#ff8a32'
-                          : '#888',
+                          ? '#38bdf8'
+                          : '#94a9c5',
                         overflowWrap: 'anywhere',
                       }}
                     >
@@ -533,7 +532,7 @@ export default function Admin() {
                   {r.status === 'payment_review' && (
                     <p
                       style={{
-                        color: '#ff8a32',
+                        color: '#38bdf8',
                         marginTop: 12,
                       }}
                     >

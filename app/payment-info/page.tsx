@@ -208,7 +208,10 @@ export default function PaymentInfoPage() {
 
         <div
           className="panel"
-          style={{ maxWidth: 520, margin: 'auto' }}
+          style={{
+            maxWidth: 520,
+            margin: 'auto'
+          }}
         >
           <h3>REGISTRATION DETAILS</h3>
 
@@ -221,26 +224,46 @@ export default function PaymentInfoPage() {
               margin: '20px 0',
             }}
           >
-            <p className="eyebrow">
-              DEMO QR PREVIEW
+            <p
+              className="eyebrow"
+              style={{
+                marginBottom: 18,
+              }}
+            >
+              UPI QR PREVIEW
             </p>
 
             <div
               style={{
                 background: '#fff',
-                color: '#111',
-                padding: 35,
-                borderRadius: 10,
-                fontSize: 18,
-                fontWeight: 800,
+                borderRadius: 12,
+                padding: 12,
+                maxWidth: 280,
+                margin: '0 auto',
               }}
             >
-              QR PREVIEW
+              <img
+                src="/upi-qr.jpeg"
+                alt="UPI QR preview"
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: 6,
+                }}
+              />
             </div>
 
-            <p className="hint">
-              Demonstration only — no payment QR
-              is displayed.
+            <p
+              className="hint"
+              style={{
+                marginTop: 15,
+                lineHeight: 1.6,
+              }}
+            >
+              QR preview for testing only.
+              Do not send money.
+              Payment verification is not yet enabled.
             </p>
           </div>
 
@@ -252,7 +275,11 @@ export default function PaymentInfoPage() {
             <>
               {!confirmed && (
                 <>
-                  <h3 style={{ textAlign: 'center' }}>
+                  <h3
+                    style={{
+                      textAlign: 'center',
+                    }}
+                  >
                     TIME REMAINING
                   </h3>
 
@@ -326,7 +353,9 @@ export default function PaymentInfoPage() {
               {confirmed ? (
                 <div
                   className="notice"
-                  style={{ marginTop: 20 }}
+                  style={{
+                    marginTop: 20,
+                  }}
                 >
                   Details submitted successfully.
                   Host needs to process your
@@ -336,7 +365,9 @@ export default function PaymentInfoPage() {
               ) : (
                 <button
                   className="cta full"
-                  style={{ marginTop: 20 }}
+                  style={{
+                    marginTop: 20,
+                  }}
                   onClick={handleSubmit}
                   disabled={
                     loading ||
@@ -370,7 +401,9 @@ export default function PaymentInfoPage() {
 
           <button
             className="outline full"
-            style={{ marginTop: 12 }}
+            style={{
+              marginTop: 12,
+            }}
             onClick={() => router.push('/')}
           >
             BACK TO ARENA
